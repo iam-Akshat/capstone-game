@@ -42,5 +42,78 @@ export default class WWorldScene extends Phaser.Scene {
     }
     rocksLayer.setCollisionByExclusion([-1]);
     grassLayer.setCollisionByExclusion([-1]);
+
+    this.player = this.physics.add.sprite(50, 100, 'hero-idle-front', 2);
+    this.player.setCollideWorldBounds(true);
+
+
+    this.cursors = this.input.keyboard.createCursorKeys();
+
+    this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
+    this.cameras.main.startFollow(this.player);
+    this.cameras.main.roundPixels = true;
+    this.physics.add.collider(this.player, rocksLayer);
+    this.physics.add.collider(this.player, grassLayer);
+
+    // -------------animations start--------- //
+    const defaultAnimationFrames = [1, 2, 3, 4, 5, 6];
+    this.anims.create({
+      key: 'left',
+      frames: this.anims.generateFrameNumbers('hero-walk-side', { frames: defaultAnimationFrames }),
+      frameRate: 10,
+      repeat: -1,
+    });
+    this.anims.create({
+      key: 'right',
+      frames: this.anims.generateFrameNumbers('hero-walk-side', { frames: defaultAnimationFrames }),
+      frameRate: 10,
+      repeat: -1,
+    });
+    this.anims.create({
+      key: 'up',
+      frames: this.anims.generateFrameNumbers('hero-walk-back', { frames: defaultAnimationFrames }),
+      frameRate: 10,
+      repeat: -1,
+    });
+    this.anims.create({
+      key: 'down',
+      frames: this.anims.generateFrameNumbers('hero-walk-front', { frames: defaultAnimationFrames }),
+      frameRate: 10,
+      repeat: -1,
+    });
+    // --------------animations end--------------- //
+  }
+
+  update() {
+    this.player.body.setVelocity(0);
+
+    // Horizontal movement
+    if (this.cursors.left.isDown) {
+      this.player.body.setVelocityX(-80);
+      this.player.flipX = true;
+    } else if (this.cursors.right.isDown) {
+      this.player.body.setVelocityX(80);
+      this.player.flipX = false;
+    }
+
+    // Vertical movement
+    if (this.cursors.up.isDown) {
+      this.player.body.setVelocityY(-80);
+    } else if (this.cursors.down.isDown) {
+      this.player.body.setVelocityY(80);
+    }
+
+
+    if (this.cursors.left.isDown) {
+      this.player.anims.play('left', true);
+    } else if (this.cursors.right.isDown) {
+      this.player.anims.play('right', true);
+    } else if (this.cursors.up.isDown) {
+      this.player.anims.play('up', true);
+    } else if (this.cursors.down.isDown) {
+      this.player.anims.play('down', true);
+    } else {
+      this.player.anims.stop();
+    }
   }
 }
