@@ -81,6 +81,7 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('checkedBox', 'assets/ui/blue_boxCheckmark.png');
     this.load.image('mapSprite', 'assets/ForrestTiles.png');
     this.load.image('grassSprite', 'assets/Bushes.png');
+    this.load.spritesheet('items', 'assets/items.png', { frameHeight: 21, frameWidth: 16.25 });
     this.load.setPath('assets/hero');
     this.load.spritesheet('hero-idle-front', 'idle/hero-idle-front.png', { frameHeight: 32, frameWidth: 32 });
     this.load.spritesheet('hero-idle-back', 'idle/hero-idle-back.png', { frameHeight: 32, frameWidth: 32 });

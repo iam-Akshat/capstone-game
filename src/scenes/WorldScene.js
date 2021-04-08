@@ -36,16 +36,29 @@ export default class WWorldScene extends Phaser.Scene {
       const y = Math.floor(Phaser.Math.RND.between(0, this.physics.world.bounds.height) / 16);
       // parameters are x, y, width, height
       rocksLayer.fill(17, x, y, 1, 1);
-      grassLayer.fill(3, x + genRandomNum(21), y + genRandomNum(28), 1, 1);
-      grassLayer.fill(4, x + genRandomNum(21), y + genRandomNum(28), 1, 1);
-      grassLayer.fill(1, x + genRandomNum(21), y + genRandomNum(28), 1, 1);
+      grassLayer.fill(3, x + genRandomNum(21), y + genRandomNum(24), 1, 1);
+      grassLayer.fill(4, x + genRandomNum(22), y + genRandomNum(25), 1, 1);
+      grassLayer.fill(1, x + genRandomNum(23), y + genRandomNum(26), 1, 1);
     }
     rocksLayer.setCollisionByExclusion([-1]);
     grassLayer.setCollisionByExclusion([-1]);
 
+    const points = this.physics.add.group({
+      key: 'items',
+      frame: [1],
+      setXY: {
+        x: genRandomNum(100),
+        y: genRandomNum(100),
+        stepX: 22,
+        stepY: 33,
+      },
+
+      repeat: 27,
+    });
     this.player = this.physics.add.sprite(50, 100, 'hero-idle-front', 2);
     this.player.setCollideWorldBounds(true);
 
+    this.physics.add.overlap(this.player, points, this.collectPoint, null, this);
 
     this.cursors = this.input.keyboard.createCursorKeys();
 
@@ -82,6 +95,11 @@ export default class WWorldScene extends Phaser.Scene {
       repeat: -1,
     });
     // --------------animations end--------------- //
+
+    // -------------Scoring system start---------------- //
+    this.scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' }).setScrollFactor(0);
+    this.score = 0;
+    // -------------Scoring system end---------------- //
   }
 
   update() {
@@ -114,6 +132,17 @@ export default class WWorldScene extends Phaser.Scene {
       this.player.anims.play('down', true);
     } else {
       this.player.anims.stop();
+    }
+  }
+
+  collectPoint(player, point) {
+    this.cameras.main.shake(50);
+    player.setScale(1 + 0.0001 * this.score);
+    this.score += 10;
+    this.scoreText.setText(`Score: ${this.score}`);
+    point.destroy();
+    if (this.score === 280) {
+      console.log('game complete');
     }
   }
 }
