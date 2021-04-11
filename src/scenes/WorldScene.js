@@ -1,6 +1,8 @@
 import Phaser from 'phaser';
 import genRandomNum from '../helpers/randomNum';
 
+const TOTAL_POINT_OBJECTS = 20;
+
 export default class WWorldScene extends Phaser.Scene {
   constructor() {
     super({ key: 'WorldScene' });
@@ -53,7 +55,7 @@ export default class WWorldScene extends Phaser.Scene {
         stepY: 33,
       },
 
-      repeat: 27,
+      repeat: TOTAL_POINT_OBJECTS,
     });
     this.player = this.physics.add.sprite(50, 100, 'hero-idle-front', 2);
     this.player.setCollideWorldBounds(true);
@@ -97,6 +99,7 @@ export default class WWorldScene extends Phaser.Scene {
     // --------------animations end--------------- //
 
     // -------------Scoring system start---------------- //
+    this.pointObjects = 0;
     this.scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' }).setScrollFactor(0);
     this.score = 0;
     // -------------Scoring system end---------------- //
@@ -137,11 +140,12 @@ export default class WWorldScene extends Phaser.Scene {
 
   collectPoint(player, point) {
     this.cameras.main.shake(50);
+    this.pointObjects += 1;
     player.setScale(1 + 0.0001 * this.score);
-    this.score += 10;
+    this.score += genRandomNum(10);
     this.scoreText.setText(`Score: ${this.score}`);
     point.destroy();
-    if (this.score === 280) {
+    if (this.pointObjects === TOTAL_POINT_OBJECTS + 1) {
       console.log('game complete');
     }
   }
