@@ -4,6 +4,7 @@ import WorldScene from './scenes/WorldScene';
 import PreloaderScene from './scenes/PreloaderScene';
 import TitleScene from './scenes/TitleScene';
 import CreditsScene from './scenes/CreditsScene';
+import EndGameScene from './scenes/EndgameScene';
 
 const gameConfig = {
   type: Phaser.AUTO,
@@ -11,6 +12,9 @@ const gameConfig = {
   width: 640,
   height: 640,
   zoom: 1,
+  dom: {
+    createContainer: true,
+  },
   pixelArt: true,
   physics: {
     default: 'arcade',
@@ -24,6 +28,7 @@ const gameConfig = {
     PreloaderScene,
     TitleScene,
     CreditsScene,
+    EndGameScene,
   ],
 };
 

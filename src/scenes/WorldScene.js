@@ -146,7 +146,7 @@ export default class WWorldScene extends Phaser.Scene {
     this.scoreText.setText(`Score: ${this.score}`);
     point.destroy();
     if (this.pointObjects === TOTAL_POINT_OBJECTS + 1) {
-      console.log('game complete');
+      this.scene.start('Endgame', { score: this.score });
     }
   }
 }
