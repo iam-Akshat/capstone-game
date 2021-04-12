@@ -5,6 +5,7 @@ import PreloaderScene from './scenes/PreloaderScene';
 import TitleScene from './scenes/TitleScene';
 import CreditsScene from './scenes/CreditsScene';
 import EndGameScene from './scenes/EndgameScene';
+import LeaderboardScene from './scenes/LeaderboardScene';
 
 const gameConfig = {
   type: Phaser.AUTO,
@@ -29,6 +30,7 @@ const gameConfig = {
     TitleScene,
     CreditsScene,
     EndGameScene,
+    LeaderboardScene,
   ],
 };
 

@@ -21,6 +21,7 @@ export default class EndGameScene extends Phaser.Scene {
         await postUserScore(name.value, this.score);
         name.value = '';
         if (this.error) this.error.destroy();
+        this.scene.start('Leaderboard', { score: this.score });
       } else {
         this.error = this.add.text(320, 220, 'Please enter name');
       }
