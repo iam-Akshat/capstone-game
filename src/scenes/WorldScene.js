@@ -45,18 +45,14 @@ export default class WWorldScene extends Phaser.Scene {
     rocksLayer.setCollisionByExclusion([-1]);
     grassLayer.setCollisionByExclusion([-1]);
 
-    const points = this.physics.add.group({
-      key: 'items',
-      frame: [1],
-      setXY: {
-        x: genRandomNum(100),
-        y: genRandomNum(100),
-        stepX: 22,
-        stepY: 33,
-      },
+    const points = this.physics.add.group();
+    for (let i = 0; i < TOTAL_POINT_OBJECTS; i += 1) {
+      const x = Math.floor(Phaser.Math.RND.between(0, this.physics.world.bounds.width));
+      const y = Math.floor(Phaser.Math.RND.between(0, this.physics.world.bounds.height));
+      const point = this.physics.add.sprite(x, y, 'items', 1);
+      points.add(point);
+    }
 
-      repeat: TOTAL_POINT_OBJECTS,
-    });
     this.player = this.physics.add.sprite(50, 100, 'hero-idle-front', 2);
     this.player.setCollideWorldBounds(true);
 
@@ -150,7 +146,7 @@ export default class WWorldScene extends Phaser.Scene {
     this.score += genRandomNum(10);
     this.scoreText.setText(`Score: ${this.score}`);
     point.destroy();
-    if (this.pointObjects === TOTAL_POINT_OBJECTS + 1) {
+    if (this.pointObjects === TOTAL_POINT_OBJECTS) {
       this.scene.start('Endgame', { score: this.score });
     }
   }
