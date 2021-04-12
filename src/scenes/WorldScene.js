@@ -139,7 +139,12 @@ export default class WWorldScene extends Phaser.Scene {
   }
 
   collectPoint(player, point) {
+    const x = Math.floor(Phaser.Math.RND.between(0, this.physics.world.bounds.width));
+    const y = Math.floor(Phaser.Math.RND.between(0, this.physics.world.bounds.height));
+    player.x = x;
+    player.y = y;
     this.cameras.main.shake(50);
+    this.cameras.main.flash(900, 233, 80, 33);
     this.pointObjects += 1;
     player.setScale(1 + 0.0001 * this.score);
     this.score += genRandomNum(10);
