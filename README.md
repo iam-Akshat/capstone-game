@@ -2,9 +2,9 @@
 
 > A luck based game made with Phaser 3.
 
-Player has to collect points in order to complete the game,the points are randomly given.
-
-
+Use the arrow keys to move the player Up, Down, Left and Right. Collect all the hearts 
+in order to complete the game, But thats not all, everytime you collect a heart, you get
+transported to some place else. 
 
 ## Screenshot
 ![Screenshot](./ss1.png)
