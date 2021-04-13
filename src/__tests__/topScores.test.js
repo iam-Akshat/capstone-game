@@ -28,4 +28,25 @@ describe('topScores', () => {
     ];
     expect(topScores(scores)).toStrictEqual(sortedScore);
   });
+  it('does not return same array', () => {
+    const scores = [
+      {
+        user: 'user1',
+        score: '100',
+      },
+      {
+        user: 'user2',
+        score: '150',
+      },
+      {
+        user: 'user3',
+        score: '99',
+      },
+      {
+        user: 'myplayer',
+        score: '101',
+      },
+    ];
+    expect(topScores([...scores])).not.toStrictEqual(scores);
+  });
 });

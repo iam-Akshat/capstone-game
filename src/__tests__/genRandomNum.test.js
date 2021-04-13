@@ -13,4 +13,8 @@ describe('genRandomNum', () => {
     const num = genRandomNum(10);
     expect(num).toBeLessThan(11);
   });
+  it('does not return floats', () => {
+    const num = genRandomNum(30);
+    expect(Number.isInteger(num)).not.toBe(false);
+  });
 });
