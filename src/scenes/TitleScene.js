@@ -17,19 +17,4 @@ export default class TitleScene extends Phaser.Scene {
     // Credits
     this.creditsButton = new Button(this, width / 2, height / 2 + 100, 'blueButton1', 'blueButton2', 'Credits', 'Credits');
   }
-
-  centerButton(gameObject, offset = 0) {
-    Phaser.Display.Align.In.Center(
-      gameObject,
-      this.add.zone(width / 2, height / 2 - offset * 100, width, height),
-    );
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  centerButtonText(gameText, gameButton) {
-    Phaser.Display.Align.In.Center(
-      gameText,
-      gameButton,
-    );
-  }
 }
